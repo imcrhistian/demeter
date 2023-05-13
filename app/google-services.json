@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "817280902469",
+    "project_id": "demeter-256",
+    "storage_bucket": "demeter-256.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:817280902469:android:4e199db2cf83b0a96b8a2c",
+        "android_client_info": {
+          "package_name": "com.demeter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "817280902469-ugorpri35tldl6o068jm4oitm4tardd3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1Re_sprQ0DTuOxgEVsMBm0yVBgBqBQ_k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "817280902469-ugorpri35tldl6o068jm4oitm4tardd3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Demeter</string>
+    <string name="etiqueta_correo">Correo electrónico</string>
+    <string name="etiqueta_contrasena">Contraseña</string>
+    <string name="etiqueta_iniciar_sesion">Iniciar sesión</string>
+    <string name="etiqueta_facebook">Continuar con Facebook</string>
+    <string name="etiqueta_google">Continuar con Google</string>
+    <string name="etiqueta_registro_interrogante">¿No tienes registro? <b>Registrate</b></string>
+    <string name="etiqueta_inicio_sesion_interrogante">¿Ya tienes una? <b>Inicia sesión</b></string>
+    <string name="etiqueta_registro">Registrar</string>
+    <string name="etiqueta_continuar">Continuar</string>
+    <string-array name="distritos">
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+    </string-array>
+</resources>
