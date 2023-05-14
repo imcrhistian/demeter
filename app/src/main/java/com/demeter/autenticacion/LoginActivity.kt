@@ -21,6 +21,8 @@ class LoginActivity : AppCompatActivity() {
         val inputCorreo = findViewById<TextInputEditText>(R.id.inputCorreoE)
         val inputContrasena = findViewById<TextInputEditText>(R.id.inputContrasena)
 
+        verificarSesion()
+
         //[Valida los campos y luego inicia sesión]
         findViewById<Button>(R.id.btnIniciarSesion).setOnClickListener {
             validaciones(inputCorreo, inputContrasena)
@@ -65,6 +67,17 @@ class LoginActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+        }
+    }
+
+    private fun verificarSesion(){
+        if(FirebaseAuth.getInstance().currentUser != null){
+            startActivity(Intent(this, InicioActivity::class.java))
+            Toast.makeText(
+                applicationContext,
+                "Bienvenido",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 }

@@ -11,9 +11,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        findViewById<TextView>(R.id.textView).setOnClickListener{
-            startActivity(Intent(this, LoginActivity::class.java))
-        }
+        Thread.sleep(3000)
+        startActivity(Intent(this, LoginActivity::class.java))
+
     }
 
 

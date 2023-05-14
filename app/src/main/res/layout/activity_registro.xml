@@ -15,15 +15,109 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/imageView2"
+        <Space
             android:layout_width="match_parent"
-            android:layout_height="320dp"
-            app:srcCompat="@drawable/black_cat" />
+            android:layout_height="150dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputNombresR"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:hint="@string/etiqueta_nombres"
+                android:inputType="text"
+                android:maxLength="20"
+                android:textSize="16sp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="10dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputPaternoR"
+                        android:layout_width="155dp"
+                        android:layout_height="55dp"
+                        android:hint="@string/etiqueta_apellido_paterno"
+                        android:maxLength="10"
+                        android:inputType="text"
+                        android:textSize="16sp"/>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="15dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="15dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputMaternoR"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:hint="@string/etiqueta_apellido_materno"
+                        android:maxLength="10"
+                        android:inputType="text"
+                        android:textSize="16sp"/>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+        </LinearLayout>
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="20dp" />
+            android:layout_height="10dp"
+            android:layout_weight="1" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputDniR"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:hint="@string/etiqueta_dni"
+                android:maxLength="8"
+                android:inputType="number"
+                android:textSize="16sp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_weight="1" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -32,7 +126,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/inputCorreoR"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="55dp"
                 android:hint="@string/etiqueta_correo"
                 android:inputType="textEmailAddress"
                 android:textSize="16sp" />
@@ -40,7 +134,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Space
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="10dp"
             android:layout_weight="1" />
 
@@ -51,23 +145,12 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/inputContrasenaR"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="55dp"
                 android:hint="@string/etiqueta_contrasena"
-                android:inputType="textPassword"
-                android:textSize="16sp"/>
+                android:inputType="numberPassword"
+                android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="15dp" />
-
-        <Button
-            android:id="@+id/btnRegistrar"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/botones_background"
-            android:text="@string/etiqueta_registro"
-            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -78,6 +161,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btnRegistrar"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@drawable/botones_background"
+            android:text="@string/etiqueta_registro"
+            android:textSize="16sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp" />
 
         <TextView
             android:id="@+id/textView2"

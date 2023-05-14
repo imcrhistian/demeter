@@ -19,39 +19,42 @@ class DireccionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_direccion)
 
-        val nombresInput = findViewById<TextInputEditText>(R.id.inputNombres)
-        val apellidosInput = findViewById<TextInputEditText>(R.id.inputApellidos)
-        val distritoInput = findViewById<AutoCompleteTextView>(R.id.inputDistrito)
-        val telefonoInput = findViewById<TextInputEditText>(R.id.inputTelefono)
-        val direccionInput = findViewById<TextInputEditText>(R.id.inputDireccion)
-        val dniInput = findViewById<TextInputEditText>(R.id.inputDNI)
+        val nombres = findViewById<TextInputEditText>(R.id.inputNombresD)
+        val paterno = findViewById<TextInputEditText>(R.id.inputPaternoD)
+        val materno = findViewById<TextInputEditText>(R.id.inputMaternoD)
+        val distrito = findViewById<AutoCompleteTextView>(R.id.inputDistritoD)
+        val telefono = findViewById<TextInputEditText>(R.id.inputTelefonoD)
+        val direccion = findViewById<TextInputEditText>(R.id.inputDireccionD)
+        val dni = findViewById<TextInputEditText>(R.id.inputDniD)
 
 
-        mostrarDistrito(distritoInput)
-        recuperarDatos(nombresInput, apellidosInput, telefonoInput, direccionInput, dniInput)
+        mostrarDistrito(distrito)
+        recuperarDatos(nombres, paterno, materno, dni, direccion,  telefono)
         findViewById<Button>(R.id.btnGuardarDireccion).setOnClickListener {
-            guardarDireccion(nombresInput, apellidosInput, distritoInput, telefonoInput, direccionInput, dniInput)
+            guardarDireccion(nombres, paterno, materno, dni, distrito, direccion, telefono)
         }
     }
 
     private fun guardarDireccion(
-        nombresInput: TextInputEditText,
-        apellidosInput: TextInputEditText,
-        distritoInput: AutoCompleteTextView,
-        telefonoInput: TextInputEditText,
-        direccionInput: TextInputEditText,
-        dniInput: TextInputEditText
+        nombres: TextInputEditText,
+        paterno: TextInputEditText,
+        materno: TextInputEditText,
+        dni: TextInputEditText,
+        distrito: AutoCompleteTextView,
+        direccion: TextInputEditText,
+        telefono: TextInputEditText
     ) {
         FirebaseFirestore.getInstance()
             .collection("usuario").document(FirebaseAuth.getInstance()
                 .currentUser?.email.toString()).set(
                 hashMapOf(
-                    "nombres" to nombresInput.text.toString(),
-                    "apellidos" to apellidosInput.text.toString(),
-                    "distrito" to distritoInput.text.toString(),
-                    "telefono" to telefonoInput.text.toString(),
-                    "direccion" to direccionInput.text.toString(),
-                    "dni" to dniInput.text.toString()
+                    "nombres" to nombres.text.toString(),
+                    "aPaterno" to paterno.text.toString(),
+                    "aMaterno" to materno.text.toString(),
+                    "dni" to dni.text.toString(),
+                    "distrito" to distrito.text.toString(),
+                    "telefono" to telefono.text.toString(),
+                    "direccion" to direccion.text.toString()
                 )
             )
         Toast.makeText(
@@ -83,20 +86,22 @@ class DireccionActivity : AppCompatActivity() {
     }
 
     private fun recuperarDatos(
-        nombresInput: TextInputEditText,
-        apellidosInput: TextInputEditText,
-        telefonoInput: TextInputEditText,
-        direccionInput: TextInputEditText,
-        dniInput: TextInputEditText
-    ){
+        nombres: TextInputEditText,
+        paterno: TextInputEditText,
+        materno: TextInputEditText,
+        dni: TextInputEditText,
+        direccion: TextInputEditText,
+        telefono: TextInputEditText
+    ) {
         FirebaseFirestore.getInstance()
             .collection("usuario").document(FirebaseAuth.getInstance()
                 .currentUser?.email.toString()).get().addOnSuccessListener {
-                nombresInput.setText(it.get("nombres") as String?)
-                apellidosInput.setText(it.get("apellidos") as String?)
-                dniInput.setText(it.get("dni") as String?)
-                direccionInput.setText(it.get("direccion") as String?)
-                telefonoInput.setText(it.get("telefono") as String?)
+                nombres.setText(it.get("nombres") as String?)
+                paterno.setText(it.get("aPaterno") as String?)
+                materno.setText(it.get("aMaterno") as String?)
+                dni.setText(it.get("dni") as String?)
+                direccion.setText(it.get("direccion") as String?)
+                telefono.setText(it.get("telefono") as String?)
             }
     }
 

@@ -14,19 +14,24 @@
         tools:targetApi="31">
         <activity
             android:name=".datos.DireccionActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode="singleInstance"/>
         <activity
             android:name=".inicio.InicioActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode="singleInstance"/>
         <activity
             android:name=".autenticacion.RegistroActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode="singleInstance"/>
         <activity
             android:name=".autenticacion.LoginActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode="singleInstance"/>
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
