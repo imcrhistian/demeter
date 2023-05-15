@@ -49,13 +49,69 @@
             android:layout_height="match_parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputNombres"
+                android:id="@+id/inputNombresD"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:hint="Nombres"
-                android:inputType="text"
-                android:maxLength="20"/>
+                android:enabled="false"
+                android:hint="@string/etiqueta_nombres" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputPaternoD"
+                        android:layout_width="160dp"
+                        android:layout_height="55dp"
+                        android:hint="@string/etiqueta_apellido_paterno"
+                        android:enabled="false"/>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="15dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputMaternoD"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/etiqueta_apellido_materno"
+                        android:enabled="false"/>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+        </LinearLayout>
 
         <Space
             android:layout_width="match_parent"
@@ -66,29 +122,11 @@
             android:layout_height="match_parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputApellidos"
+                android:id="@+id/inputDniD"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="Apellidos"
-                android:inputType="text"
-                android:maxLength="20"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="15dp" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputDNI"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="Documento de identidad"
-                android:maxLength="8"
-                android:inputType="number"/>
+                android:layout_height="55dp"
+                android:enabled="false"
+                android:hint="@string/etiqueta_dni" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Space
@@ -101,7 +139,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
             <AutoCompleteTextView
-                android:id="@+id/inputDistrito"
+                android:id="@+id/inputDistritoD"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_weight="1"
@@ -118,7 +156,7 @@
             android:layout_height="match_parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputDireccion"
+                android:id="@+id/inputDireccionD"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="Dirección"
@@ -134,12 +172,12 @@
             android:layout_height="match_parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputTelefono"
+                android:id="@+id/inputTelefonoD"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:hint="Teléfono"
-                android:maxLength="9"
-                android:inputType="phone" />
+                android:hint="@string/etiqueta_telefono"
+                android:inputType="phone"
+                android:maxLength="9" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Space

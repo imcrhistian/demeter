@@ -2,6 +2,8 @@ package com.demeter.datos
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
@@ -15,91 +17,115 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class DireccionActivity : AppCompatActivity() {
 
+    private lateinit var nombres: TextInputEditText
+    private lateinit var paterno: TextInputEditText
+    private lateinit var materno: TextInputEditText
+    private lateinit var distrito: AutoCompleteTextView
+    private lateinit var telefono: TextInputEditText
+    private lateinit var direccion: TextInputEditText
+    private lateinit var dni: TextInputEditText
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_direccion)
 
-        val nombresInput = findViewById<TextInputEditText>(R.id.inputNombres)
-        val apellidosInput = findViewById<TextInputEditText>(R.id.inputApellidos)
-        val distritoInput = findViewById<AutoCompleteTextView>(R.id.inputDistrito)
-        val telefonoInput = findViewById<TextInputEditText>(R.id.inputTelefono)
-        val direccionInput = findViewById<TextInputEditText>(R.id.inputDireccion)
-        val dniInput = findViewById<TextInputEditText>(R.id.inputDNI)
+        nombres = findViewById(R.id.inputNombresD)
+        paterno = findViewById(R.id.inputPaternoD)
+        materno = findViewById(R.id.inputMaternoD)
+        distrito = findViewById(R.id.inputDistritoD)
+        telefono = findViewById(R.id.inputTelefonoD)
+        direccion = findViewById(R.id.inputDireccionD)
+        dni = findViewById(R.id.inputDniD)
 
-
-        mostrarDistrito(distritoInput)
-        recuperarDatos(nombresInput, apellidosInput, telefonoInput, direccionInput, dniInput)
+        arrayDistrito()
+        recuperarDatos()
         findViewById<Button>(R.id.btnGuardarDireccion).setOnClickListener {
-            guardarDireccion(nombresInput, apellidosInput, distritoInput, telefonoInput, direccionInput, dniInput)
+            guardarDireccion()
         }
     }
 
-    private fun guardarDireccion(
-        nombresInput: TextInputEditText,
-        apellidosInput: TextInputEditText,
-        distritoInput: AutoCompleteTextView,
-        telefonoInput: TextInputEditText,
-        direccionInput: TextInputEditText,
-        dniInput: TextInputEditText
-    ) {
-        FirebaseFirestore.getInstance()
-            .collection("usuario").document(FirebaseAuth.getInstance()
-                .currentUser?.email.toString()).set(
+    private fun guardarDireccion() {
+        FirebaseFirestore.getInstance().collection("usuario")
+            .document(FirebaseAuth.getInstance().currentUser?.email.toString())
+            .set(
                 hashMapOf(
-                    "nombres" to nombresInput.text.toString(),
-                    "apellidos" to apellidosInput.text.toString(),
-                    "distrito" to distritoInput.text.toString(),
-                    "telefono" to telefonoInput.text.toString(),
-                    "direccion" to direccionInput.text.toString(),
-                    "dni" to dniInput.text.toString()
-                )
+                "nombres" to nombres.text.toString(),
+                "aPaterno" to paterno.text.toString(),
+                "aMaterno" to materno.text.toString(),
+                "dni" to dni.text.toString(),
+                "distrito" to distrito.text.toString(),
+                "telefono" to telefono.text.toString(),
+                "direccion" to direccion.text.toString()
+            ))
+            .addOnSuccessListener {
+                Toast.makeText(
+                    applicationContext,
+                    "Datos guardados",
+                    Toast.LENGTH_SHORT
+                ).show()
+                Handler(Looper.getMainLooper()).postDelayed({
+                    startActivity(Intent(this, InicioActivity::class.java))
+                    finish()
+                }, 2000)
+            }
+            .addOnFailureListener {
+                Toast.makeText(
+                    applicationContext,
+                    "Error al guardar los datos",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+    }
+
+    private fun mostrarDistrito(distritos: MutableList<String>) {
+        distrito.setAdapter(
+            ArrayAdapter(
+                this,
+                android.R.layout.simple_dropdown_item_1line,
+                distritos
             )
-        Toast.makeText(
-            applicationContext,
-            "Datos guardados",
-            Toast.LENGTH_SHORT
-        ).show()
-        Thread.sleep(4000)
-        startActivity(Intent(this, InicioActivity::class.java))
+        )
     }
 
-    private fun mostrarDistrito(distritoInput: AutoCompleteTextView) {
+    private fun arrayDistrito() {
         val distritos = mutableListOf<String>()
-        FirebaseFirestore.getInstance()
-            .collection("distrito")
-            .get().addOnSuccessListener { result ->
-                for(document in result){
+        FirebaseFirestore.getInstance().collection("distrito")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
                     distritos.add(document.id)
-                    Toast.makeText(
-                        applicationContext,
-                        document.id,
-                        Toast.LENGTH_SHORT
-                    ).show()
                 }
+                mostrarDistrito(distritos)
             }
-
-        distritoInput.setAdapter(ArrayAdapter(this,
-                android.R.layout.simple_dropdown_item_1line, distritos))
+            .addOnFailureListener {
+                Toast.makeText(
+                    applicationContext,
+                    "Error al obtener los distritos",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
     }
 
-    private fun recuperarDatos(
-        nombresInput: TextInputEditText,
-        apellidosInput: TextInputEditText,
-        telefonoInput: TextInputEditText,
-        direccionInput: TextInputEditText,
-        dniInput: TextInputEditText
-    ){
+    private fun recuperarDatos() {
         FirebaseFirestore.getInstance()
-            .collection("usuario").document(FirebaseAuth.getInstance()
-                .currentUser?.email.toString()).get().addOnSuccessListener {
-                nombresInput.setText(it.get("nombres") as String?)
-                apellidosInput.setText(it.get("apellidos") as String?)
-                dniInput.setText(it.get("dni") as String?)
-                direccionInput.setText(it.get("direccion") as String?)
-                telefonoInput.setText(it.get("telefono") as String?)
+            .collection("usuario")
+            .document(FirebaseAuth.getInstance().currentUser?.email.toString()).get()
+            .addOnSuccessListener { document ->
+                nombres.setText(document.getString("nombres"))
+                paterno.setText(document.getString("aPaterno"))
+                materno.setText(document.getString("aMaterno"))
+                dni.setText(document.getString("dni"))
+                direccion.setText(document.getString("direccion"))
+                telefono.setText(document.getString("telefono"))
+                distrito.setText(document.getString("distrito"))
+            }
+            .addOnFailureListener {
+                Toast.makeText(
+                    applicationContext,
+                    "Error al recuperar los datos",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
     }
-
 }
-
 

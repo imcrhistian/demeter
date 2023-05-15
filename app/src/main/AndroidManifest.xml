@@ -13,20 +13,33 @@
         android:theme="@style/Theme.Demeter"
         tools:targetApi="31">
         <activity
-            android:name=".datos.DireccionActivity"
+            android:name=".datos.MetodoPagoActivity"
             android:exported="false" />
+        <activity
+            android:name=".datos.DireccionActivity"
+            android:exported="false"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".inicio.InicioActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".autenticacion.RegistroActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".autenticacion.LoginActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

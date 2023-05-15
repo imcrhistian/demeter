@@ -17,22 +17,27 @@ class RegistroActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registro)
 
-        val inputCorreo = findViewById<TextInputEditText>(R.id.inputCorreoR)
-        val inputContrasena = findViewById<TextInputEditText>(R.id.inputContrasenaR)
-
         findViewById<Button>(R.id.btnRegistrar).setOnClickListener {
-            validaciones(inputCorreo, inputContrasena)
+            validaciones()
         }
 
         findViewById<TextView>(R.id.textView2).setOnClickListener{
             startActivity(Intent(this, MainActivity::class.java))
         }
-
     }
 
-    private fun validaciones(inputCorreo: TextInputEditText, inputContrasena: TextInputEditText) {
-        if(inputCorreo.text!!.isNotEmpty() && inputContrasena.text!!.isNotEmpty()){
-            registrarUsuario(inputCorreo,inputContrasena)
+    private fun validaciones() {
+        val correo = findViewById<TextInputEditText>(R.id.inputCorreoR)
+        val contrasena = findViewById<TextInputEditText>(R.id.inputContrasenaR)
+        val nombres = findViewById<TextInputEditText>(R.id.inputNombresR)
+        val paterno = findViewById<TextInputEditText>(R.id.inputPaternoR)
+        val materno = findViewById<TextInputEditText>(R.id.inputMaternoR)
+        val dni = findViewById<TextInputEditText>(R.id.inputDniR)
+
+        if(correo.text!!.isNotEmpty() && contrasena.text!!.isNotEmpty() &&
+            nombres.text!!.isNotEmpty() && materno.text!!.isNotEmpty() &&
+            paterno.text!!.isNotEmpty() && dni.text!!.isNotEmpty()){
+            registrarUsuario(correo,contrasena, nombres, paterno, materno, dni)
         }
         else{
             Toast.makeText(
@@ -43,26 +48,33 @@ class RegistroActivity : AppCompatActivity() {
         }
     }
 
-    private fun registrarUsuario(inputCorreo: TextInputEditText, inputContrasena: TextInputEditText) {
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(
-            inputCorreo.text.toString(),
-            inputContrasena.text.toString()
-        ).addOnCompleteListener{
+    private fun registrarUsuario(
+        correo: TextInputEditText,
+        contrasena: TextInputEditText,
+        nombres: TextInputEditText,
+        paterno: TextInputEditText,
+        materno: TextInputEditText,
+        dni: TextInputEditText
+    ) {
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(correo.text.toString(), contrasena.text.toString()).addOnCompleteListener{
             if (it.isSuccessful){
+                FirebaseFirestore.getInstance()
+                    .collection("usuario").document(FirebaseAuth.getInstance()
+                        .currentUser?.email.toString()).set(
+                        hashMapOf(
+                            "nombres" to nombres.text.toString(),
+                            "aPaterno" to paterno.text.toString(),
+                            "aMaterno" to materno.text.toString(),
+                            "dni" to dni.text.toString()
+                        )
+                    )
                 startActivity(Intent(this, LoginActivity::class.java))
+                correoVerificacion()
                 Toast.makeText(
                     applicationContext,
                     "Perfil creado",
                     Toast.LENGTH_SHORT
                 ).show()
-                FirebaseFirestore.getInstance()
-                    .collection("usuario").document(FirebaseAuth.getInstance()
-                        .currentUser?.email.toString()).set(
-                        hashMapOf(
-                            "" to ""
-                        )
-                    )
-                correoVerificacion()
             } else{
                 Toast.makeText(
                     applicationContext,

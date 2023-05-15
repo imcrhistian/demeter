@@ -9,9 +9,15 @@
     <string name="etiqueta_inicio_sesion_interrogante">¿Ya tienes una? <b>Inicia sesión</b></string>
     <string name="etiqueta_registro">Registrar</string>
     <string name="etiqueta_continuar">Continuar</string>
-    <string-array name="distritos">
-        <item>01</item>
-        <item>02</item>
-        <item>03</item>
-    </string-array>
+
+    <string name="etiqueta_nombres">Nombres completos</string>
+    <string name="etiqueta_apellido_materno">Apellido materno</string>
+    <string name="etiqueta_apellido_paterno">Apellido paterno</string>
+    <string name="etiqueta_dni">Documento de identidad</string>
+    <string name="etiqueta_telefono">Número de teléfono</string>
+    <string name="etiqueta_nombre_tarjeta">Nombre en tarjeta</string>
+    <string name="etiqueta_numero_tarjeta">Numero de tarjeta</string>
+    <string name="etiqueta_fecha_expiracion">Expiración</string>
+    <string name="etiqueta_cvv">CVV</string>
+
 </resources>
