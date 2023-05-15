@@ -17,6 +17,16 @@ class RegistroActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registro)
 
+        findViewById<Button>(R.id.btnRegistrar).setOnClickListener {
+            validaciones()
+        }
+
+        findViewById<TextView>(R.id.textView2).setOnClickListener{
+            startActivity(Intent(this, MainActivity::class.java))
+        }
+    }
+
+    private fun validaciones() {
         val correo = findViewById<TextInputEditText>(R.id.inputCorreoR)
         val contrasena = findViewById<TextInputEditText>(R.id.inputContrasenaR)
         val nombres = findViewById<TextInputEditText>(R.id.inputNombresR)
@@ -24,25 +34,6 @@ class RegistroActivity : AppCompatActivity() {
         val materno = findViewById<TextInputEditText>(R.id.inputMaternoR)
         val dni = findViewById<TextInputEditText>(R.id.inputDniR)
 
-
-        findViewById<Button>(R.id.btnRegistrar).setOnClickListener {
-            validaciones(correo, contrasena, nombres, paterno, materno, dni)
-        }
-
-        findViewById<TextView>(R.id.textView2).setOnClickListener{
-            startActivity(Intent(this, MainActivity::class.java))
-        }
-
-    }
-
-    private fun validaciones(
-        correo: TextInputEditText,
-        contrasena: TextInputEditText,
-        nombres: TextInputEditText,
-        paterno: TextInputEditText,
-        materno: TextInputEditText,
-        dni: TextInputEditText
-    ) {
         if(correo.text!!.isNotEmpty() && contrasena.text!!.isNotEmpty() &&
             nombres.text!!.isNotEmpty() && materno.text!!.isNotEmpty() &&
             paterno.text!!.isNotEmpty() && dni.text!!.isNotEmpty()){
@@ -67,13 +58,6 @@ class RegistroActivity : AppCompatActivity() {
     ) {
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(correo.text.toString(), contrasena.text.toString()).addOnCompleteListener{
             if (it.isSuccessful){
-                startActivity(Intent(this, LoginActivity::class.java))
-                Toast.makeText(
-                    applicationContext,
-                    "Perfil creado",
-                    Toast.LENGTH_SHORT
-                ).show()
-
                 FirebaseFirestore.getInstance()
                     .collection("usuario").document(FirebaseAuth.getInstance()
                         .currentUser?.email.toString()).set(
@@ -84,7 +68,13 @@ class RegistroActivity : AppCompatActivity() {
                             "dni" to dni.text.toString()
                         )
                     )
+                startActivity(Intent(this, LoginActivity::class.java))
                 correoVerificacion()
+                Toast.makeText(
+                    applicationContext,
+                    "Perfil creado",
+                    Toast.LENGTH_SHORT
+                ).show()
             } else{
                 Toast.makeText(
                     applicationContext,

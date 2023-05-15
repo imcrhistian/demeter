@@ -1,8 +1,10 @@
 package com.demeter.autenticacion
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -10,6 +12,7 @@ import com.demeter.R
 import com.demeter.inicio.InicioActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class LoginActivity : AppCompatActivity() {
@@ -21,10 +24,10 @@ class LoginActivity : AppCompatActivity() {
         val inputCorreo = findViewById<TextInputEditText>(R.id.inputCorreoE)
         val inputContrasena = findViewById<TextInputEditText>(R.id.inputContrasena)
 
-        verificarSesion()
 
         //[Valida los campos y luego inicia sesión]
         findViewById<Button>(R.id.btnIniciarSesion).setOnClickListener {
+            ocultarTeclado()
             validaciones(inputCorreo, inputContrasena)
         }
 
@@ -33,10 +36,9 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, RegistroActivity::class.java))
         }
 
-
     }
     private fun validaciones(inputCorreo: TextInputEditText, inputContrasena: TextInputEditText) {
-        if(inputCorreo.text!!.isNotEmpty() && inputContrasena.text!!.isNotEmpty()){
+        if(inputCorreo.text.toString().trim().isNotEmpty() && inputContrasena.text.toString().trim().isNotEmpty()){
             iniciarSesion(inputCorreo,inputContrasena)
         }
         else{
@@ -52,14 +54,19 @@ class LoginActivity : AppCompatActivity() {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(
             inputCorreo.text.toString(),
             inputContrasena.text.toString()
-        ).addOnCompleteListener{
-            if (it.isSuccessful){
+        ).addOnCompleteListener{authTask ->
+            if (authTask.isSuccessful){
+                    FirebaseFirestore.getInstance().collection("usuario")
+                        .document(FirebaseAuth.getInstance().currentUser?.email!!).get()
+                        .addOnSuccessListener { usuarioDoc ->
+                    val nombre = usuarioDoc.getString("nombres")
+                    Toast.makeText(
+                        applicationContext,
+                        "Bienvenido $nombre!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
                 startActivity(Intent(this, InicioActivity::class.java))
-                Toast.makeText(
-                    applicationContext,
-                    "Bienvenido",
-                    Toast.LENGTH_SHORT
-                ).show()
             } else{
                 Toast.makeText(
                     applicationContext,
@@ -70,14 +77,8 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun verificarSesion(){
-        if(FirebaseAuth.getInstance().currentUser != null){
-            startActivity(Intent(this, InicioActivity::class.java))
-            Toast.makeText(
-                applicationContext,
-                "Bienvenido",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
+    private fun ocultarTeclado(){
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
     }
 }

@@ -15,4 +15,9 @@
     <string name="etiqueta_apellido_paterno">Apellido paterno</string>
     <string name="etiqueta_dni">Documento de identidad</string>
     <string name="etiqueta_telefono">Número de teléfono</string>
+    <string name="etiqueta_nombre_tarjeta">Nombre en tarjeta</string>
+    <string name="etiqueta_numero_tarjeta">Numero de tarjeta</string>
+    <string name="etiqueta_fecha_expiracion">Expiración</string>
+    <string name="etiqueta_cvv">CVV</string>
+
 </resources>
